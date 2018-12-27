@@ -1,0 +1,138 @@
+<style>
+	h1, div {
+		text-align: -webkit-center;
+	}
+	.fa-check {
+		color: green;
+	}
+	.fa-times {
+		color: red;
+	}
+</style>
+<div class="jumbotron" >
+
+	<script>
+		$(() => {
+			loadReimbursements()
+		})
+				
+		function loadReimbursements () {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					console.log('1', xhr.responseText);
+					let reimbursements = JSON.parse(xhr.responseText);
+					console.log('2', reimbursements)
+					for(let r of reimbursements) {
+						reimbursementList(r)
+					}
+				}
+			}
+			xhr.open("GET", "employee");
+			xhr.send();
+		}
+		
+		function loadReimbursements2 () {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					console.log('1', xhr.responseText);
+					let reimbursements = JSON.parse(xhr.responseText);
+					console.log('2', reimbursements)
+					for(let r of reimbursements) {
+						reimbursementList(r)
+					}
+					$("#reimbursementsList tr").remove()
+					loadReimbursements()
+				}
+			}
+			xhr.open("GET", "employee");
+			xhr.send();
+		}
+		
+		function reimbursementList (r) {
+			console.log('generate rbm list')
+			let sId = ""
+			let tId = ""
+			let date = new Date(r.submitted)
+			if (r.status_id === 1) {
+				sId = "Pending"
+			} else if (r.status_id === 2) {
+				sId = "Approved"
+			} else if (r.status_id === 3) {
+				sId = "Denied"
+			}
+			if (r.type_id === 1) {
+				tId = "Lodging"
+			} else if (r.type_id === 2) {
+				tId = "Travel"
+			} else if (r.type_id === 3) {
+				tId = "Food"
+			} else if (r.type_id === 4) {
+				tId = "Other"
+			}
+			var data = $(`
+				<tr>
+					<th scope="row">${r.id}</th>
+					<td>${r.amount}</td>
+					<td>${date}</td>
+					<td>${r.resolved}</td>
+					<td>${r.description}</td>
+					<td>${r.author}</td>
+					<td>${r.resolver}</td>
+					<td id = "status${r.id}">${sId}</td>
+					<td>${tId}</td>
+					<td>
+						<button class="fa fa-check" onclick="updateStatus(${r.id}, 2)"></button>
+						<button class="fa fa-times" onclick="updateStatus(${r.id}, 3)"></button>
+					</td>
+				</tr>
+			`)
+			$('#reimbursementsList').append(data);
+		}
+		
+		function updateStatus(id, status) {
+			const info = {
+					id,
+					status_id: status,
+					resolved: Date.now()
+			}
+			const xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					$(`status${id}`).html(status)
+					loadReimbursements2()
+				}
+			}
+			xhr.open("PUT", "employee", true)
+			xhr.setRequestHeader("Content-type", "application/json");
+			const go = JSON.stringify(info);
+			xhr.send(go);
+		}
+		
+	</script>
+
+	<h1>Reimbursement List</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Amount</th>
+				<th scope="col">Submitted</th>
+				<th scope="col">Resolved</th>
+				<th scope="col">Description</th>
+				<th scope="col">Author</th>
+				<th scope="col">Resolver</th>
+				<th scope="col">Status</th>
+				<th scope="col">Type</th>
+				<th scope="col">Approve/Deny</th>
+			</tr>
+		</thead>
+		<tbody id='reimbursementsList'>
+
+		</tbody>
+	</table>
+
+
+</div>
