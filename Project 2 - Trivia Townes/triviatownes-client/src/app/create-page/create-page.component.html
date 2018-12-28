@@ -1,0 +1,129 @@
+<div class="container">
+  <div class="row">
+    <div id="upperHalf">
+      <div id="nameQSeats">
+        <h1 class="category-box-label">Create New Lobby</h1>
+
+        <!-- Input for game lobby name -->
+        <span id="name" class="input-group mb-3 form-horizontal">
+          <input [(ngModel)]="name" id="nameInput" type="text" class="form-control" placeholder="Lobby Name" maxlength="10"
+            aria-describedby="basic-addon1">
+        </span>
+
+        <div id="inputs" class="form-inline">
+
+          <!-- Question number dropdown -->
+          <span class="dropdown col-3 form-horizontal">
+            <div class="dropdown">
+              <button class="dropbtn btn btn-success">{{questions}} Questions</button>
+              <div class="dropdown-content">
+                <a (click)='selectedQuestions(5)'>5</a>
+                <a (click)='selectedQuestions(10)'>10</a>
+                <a (click)='selectedQuestions(20)'>20</a>
+              </div>
+            </div>
+          </span>
+
+          <!-- Input for game creator username -->
+          <span id="username" class="input-group mb-3 form-horizontal">
+            <input [(ngModel)]="username" id="usernameInput" type="text" class="form-control" maxlength="10"
+              placeholder="Username" aria-describedby="basic-addon1">
+          </span>
+
+          <!-- Seat number dropdown -->
+          <span class="dropdown col-3 form-horizontal">
+            <div class="dropdown">
+              <button class="dropbtn btn btn-success">{{seats}} Seats</button>
+              <div class="dropdown-content">
+                <a (click)='selectedSeats(5)'>5</a>
+                <a (click)='selectedSeats(10)'>10</a>
+              </div>
+            </div>
+          </span>
+
+        </div>
+      </div>
+
+      <!-- Private/Public lobby toggle -->
+      <!-- <div id="privateToggle" class="col-3" (click)="privateOrPublic()">
+          <span style="color: white;margin-right: 1em;"> Public</span>
+          <input id="tester" (click)="private=!private" type="checkbox" checked data-toggle="toggle" data-style="ios" data-on="Public"
+          data-off="Private" data-onstyle="success" data-offstyle="danger">
+      </div> -->
+
+      <!-- Game creation button -->
+      <div id="createDiv">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="createBtn" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" (click)="create()">
+          Create
+        </button>
+      </div>
+
+    </div>
+ 
+    <hr style="width: 90%; margin-left: auto; margin-right: auto;">
+
+    <!-- Catergory selection buttons -->
+    <h1 class="category-box-label">Select a Trivia Category</h1>
+    <div id="lowerHalf">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="catBtnDiv col-xs-6 col-sm-6 col-md-4 col-lg-4 ">
+            <button (click)="selectedCategory('Geography')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>Geography</h4>
+              <p class="catIcon fa fa-globe"></p>
+            </button>
+          </div>
+          <div class="catBtnDiv col-xs-6 col-sm-6 col-md-4 col-lg-4 ">
+            <button (click)="selectedCategory('History')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>History</h4>
+              <p class="catIcon fa fa-history"></p>
+            </button>
+          </div>
+          <div class="catBtnDiv col-xs-6 col-sm-6 col-md-4 col-lg-4">
+            <button (click)="selectedCategory('Sports')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>Sports</h4>
+              <p class="catIcon fa fa-futbol-o"></p>
+            </button>
+          </div>
+          <div class="catBtnDiv col-xs-6 col-sm-6 col-md-4 col-lg-4 ">
+            <button (click)="selectedCategory('Politics')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>Politics</h4>
+              <p class="catIcon fa fa-handshake-o"></p>
+            </button>
+          </div>
+          <div class="catBtnDiv col-xs-6 col-sm-6 col-md-4 col-lg-4 ">
+            <button (click)="selectedCategory('Art')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>Art</h4>
+              <p class="catIcon fa fa-paint-brush"></p>
+            </button>
+          </div>
+          <div class="catBtnDiv col-xs-6 col-sm-6 col-md-4 col-lg-4 ">
+            <button (click)="selectedCategory('Math')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>Math</h4>
+              <p class="catIcon fa fa-times"></p>
+            </button>
+          </div>
+          <div class="catBtnDiv col-xs-6 col-sm-6 col-md-4 col-lg-4 ">
+            <button (click)="selectedCategory('Computer')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>Computers</h4>
+              <p class="catIcon fa fa-desktop"></p>
+            </button>
+          </div>
+          <div class="catBtnDiv col-xs-6 col-sm-6 col-md-4 col-lg-4 ">
+            <button (click)="selectedCategory('Movies')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>Movies</h4>
+              <p class="catIcon fa fa-film"></p>
+            </button>
+          </div>
+          <div class="catBtnDiv col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+            <button (click)="selectedCategory('All')" class="hvr-grow-rotate hvr-fade top-buffer catIconButton">
+              <h4>All</h4>
+              <p class="catIcon fa fa-circle-thin"></p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
